@@ -3,6 +3,17 @@
 ## Stack
 Plain HTML, CSS, and vanilla JavaScript — no framework, no build step.
 
+## Sites in this repo
+- `/` (root) — the original multi-page site: Home, Water Meters, Electricity
+  Meters, Become an Installer, Book an Assessment. Kept live as-is.
+- `/v2/` — a from-scratch narrative one-page redesign ("The Hidden Meter"),
+  its own design system (ink/paper duotone, water-cyan + power-copper accents,
+  Outfit/Manrope/IBM Plex Mono), with an inline lead-capture form so visitors
+  never have to leave the page to convert. Cross-links back to the root site's
+  water/electricity/installer pages from its footer. Do not merge the two
+  design systems — v2's palette and components are intentionally separate
+  from root's.
+
 ## Conventions
 - Use semantic HTML5 tags (header, nav, main, section, footer)
 - Keep CSS in stylesheets, JS in script files — no inline styles or onclick

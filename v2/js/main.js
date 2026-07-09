@@ -14,14 +14,54 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Nav background on scroll
+  // Nav background, scroll progress bar, and (motion-safe) parallax —
+  // one rAF-throttled scroll handler so this stays cheap.
   const nav = document.getElementById('siteNav');
+  const scrollProgress = document.getElementById('scrollProgress');
+  // Parallax offset is each section's own distance from the viewport top
+  // (bounded, naturally small) rather than absolute page scrollY, which
+  // would be tiny for the hero but huge for a section far down the page.
+  const parallaxEls = prefersReducedMotion ? [] : Array.from(document.querySelectorAll('[data-parallax]'));
+  let scrollTicking = false;
   function onScroll() {
-    if (window.scrollY > 40) nav.classList.add('scrolled');
-    else nav.classList.remove('scrolled');
+    if (scrollTicking) return;
+    scrollTicking = true;
+    requestAnimationFrame(() => {
+      const y = window.scrollY;
+      nav.classList.toggle('scrolled', y > 40);
+      if (scrollProgress) {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        scrollProgress.style.transform = 'scaleX(' + (max > 0 ? Math.min(y / max, 1) : 0) + ')';
+      }
+      parallaxEls.forEach(el => {
+        el.style.setProperty('--px', el.getBoundingClientRect().top.toFixed(1));
+      });
+      scrollTicking = false;
+    });
   }
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
+
+  // Chapter dot-nav — highlights whichever section is currently in view
+  const chapterDots = document.querySelectorAll('.chapter-dots a');
+  if (chapterDots.length && 'IntersectionObserver' in window) {
+    const dotFor = {};
+    chapterDots.forEach(dot => { dotFor[dot.dataset.scroll] = dot; });
+    const sectionIds = ['top', 'problem', 'shift', 'solution', 'proof', 'faq', 'climax'];
+    const dotIo = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          chapterDots.forEach(d => d.classList.remove('active'));
+          if (dotFor[id]) dotFor[id].classList.add('active');
+        }
+      });
+    }, { rootMargin: '-45% 0px -45% 0px' });
+    sectionIds.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) dotIo.observe(el);
+    });
+  }
 
   // Mobile nav
   const navToggle = document.getElementById('navToggle');

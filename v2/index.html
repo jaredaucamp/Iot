@@ -17,6 +17,18 @@
 </head>
 <body>
 
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<nav class="chapter-dots" id="chapterDots" aria-label="Page sections">
+  <a href="#top" data-scroll="top" data-label="Home" aria-label="Home"></a>
+  <a href="#problem" data-scroll="problem" data-label="The Problem" aria-label="The Problem"></a>
+  <a href="#shift" data-scroll="shift" data-label="The Shift" aria-label="The Shift"></a>
+  <a href="#solution" data-scroll="solution" data-label="Solutions" aria-label="Solutions"></a>
+  <a href="#proof" data-scroll="proof" data-label="Why Us" aria-label="Why Us"></a>
+  <a href="#faq" data-scroll="faq" data-label="FAQ" aria-label="FAQ"></a>
+  <a href="#climax" data-scroll="climax" data-label="Get Started" aria-label="Get Started"></a>
+</nav>
+
 <nav class="site-nav" id="siteNav">
   <div class="container nav-inner">
     <a href="#top" class="nav-brand" data-scroll="top">
@@ -45,19 +57,19 @@
 <main>
 <!-- ============ HERO ============ -->
 <header class="hero" id="top">
-  <div class="hero-noise" aria-hidden="true"></div>
+  <div class="hero-noise" data-parallax aria-hidden="true"></div>
   <div class="container hero-inner">
     <div>
-      <div class="hero-kicker"><span class="dot"></span> Live estimate · what's leaking right now</div>
-      <h1>Right now, your building is losing <span class="u-water">water</span> and <span class="u-power">electricity</span> it can't see or bill.</h1>
-      <p class="lead">Extra Dimensions installs smart water and electricity meters that make every drop and every watt visible — official installation partner of Precision Meters and PUCo.</p>
-      <div class="hero-actions">
+      <div class="hero-kicker hero-anim hero-anim-1"><span class="dot"></span> Live estimate · what's leaking right now</div>
+      <h1 class="hero-anim hero-anim-2">Right now, your building is losing <span class="u-water">water</span> and <span class="u-power">electricity</span> it can't see or bill.</h1>
+      <p class="lead hero-anim hero-anim-3">Extra Dimensions installs smart water and electricity meters that make every drop and every watt visible — official installation partner of Precision Meters and PUCo.</p>
+      <div class="hero-actions hero-anim hero-anim-4">
         <button class="btn btn-signal btn-lg" data-scroll="climax">Book a Free Site Assessment</button>
         <button class="btn btn-ghost-light btn-lg" data-scroll="problem">Show Me What's Hidden</button>
       </div>
     </div>
 
-    <div class="meter-unit reveal" data-reveal>
+    <div class="meter-unit hero-anim hero-anim-5">
       <div class="meter-box">
         <div class="meter-brand-row">
           <span class="label">Live Estimate · Jeffreys Bay Region</span>
@@ -98,7 +110,7 @@
 <!-- ============ CHAPTER 1 — THE PROBLEM ============ -->
 <section class="chapter chapter-dark-alt" id="problem">
   <div class="container">
-    <div class="chapter-head reveal" data-reveal>
+    <div class="chapter-head reveal-stagger" data-reveal-stagger>
       <div class="eyebrow power">Chapter One — The Problem</div>
       <h2>Shared buildings share something else: invisible losses.</h2>
       <p class="lead">Complexes, estates, blocks of flats and shopping centres all have the same blind spot — nobody can see usage per unit, so nobody can fix what's actually wrong.</p>
@@ -128,7 +140,7 @@
   <div class="container container-flush">
     <div class="shift-panel">
       <div class="container">
-        <div class="shift-head reveal" data-reveal>
+        <div class="shift-head reveal-stagger" data-reveal-stagger>
           <div class="eyebrow water">Chapter Two — The Shift</div>
           <h2>What if every unit reported back, on its own?</h2>
           <p class="lead">A smart meter doesn't just measure — it reports, in real time, over a secure connection. That's how a hidden number becomes one everyone can trust.</p>
@@ -163,7 +175,7 @@
 <!-- ============ CHAPTER 3 — THE SOLUTION ============ -->
 <section class="chapter chapter-light" id="solution">
   <div class="container">
-    <div class="chapter-head reveal" data-reveal>
+    <div class="chapter-head reveal-stagger" data-reveal-stagger>
       <div class="eyebrow water">Chapter Three — The Solution</div>
       <h2>Everything you need to make utilities visible</h2>
       <p class="lead lead-muted">From installation to ongoing monitoring, we manage the full lifecycle of your smart metering project.</p>
@@ -181,7 +193,7 @@
 
 <section class="chapter chapter-light-alt chapter-notop">
   <div class="container">
-    <div class="chapter-head reveal" data-reveal>
+    <div class="chapter-head reveal-stagger" data-reveal-stagger>
       <div class="eyebrow power">Who We Work With</div>
       <h2>Built for the properties that need it most</h2>
     </div>
@@ -196,7 +208,7 @@
 
 <section class="chapter chapter-light">
   <div class="container">
-    <div class="chapter-head center reveal" data-reveal>
+    <div class="chapter-head center reveal-stagger" data-reveal-stagger>
       <div class="eyebrow water">How It Works</div>
       <h2>From first call to real-time monitoring</h2>
     </div>
@@ -249,7 +261,7 @@
 <!-- ============ FAQ ============ -->
 <section class="chapter chapter-light" id="faq">
   <div class="container-narrow">
-    <div class="chapter-head center reveal" data-reveal>
+    <div class="chapter-head center reveal-stagger" data-reveal-stagger>
       <div class="eyebrow water">Frequently Asked</div>
       <h2>Common questions</h2>
     </div>
@@ -279,7 +291,7 @@
 </section>
 
 <!-- ============ CLIMAX + FORM ============ -->
-<section class="chapter climax" id="climax">
+<section class="chapter climax" id="climax" data-parallax>
   <div class="container">
     <div class="climax-inner">
       <div class="reveal" data-reveal>

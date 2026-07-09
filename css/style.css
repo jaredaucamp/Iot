@@ -143,6 +143,11 @@ button { font-family: inherit; cursor: pointer; }
   padding: 6px 0; border-bottom: 2px solid transparent;
 }
 .nav-links a:hover, .nav-links a.active { color: var(--navy-800); border-color: var(--green-500); }
+.nav-links a.nav-new {
+  background: var(--green-500); color: var(--white); padding: 7px 16px; border-radius: 999px;
+  border-bottom: none; font-size: 13.5px;
+}
+.nav-links a.nav-new:hover { background: var(--green-600); color: var(--white); }
 .header-cta { display: flex; align-items: center; gap: 12px; }
 .nav-toggle {
   display: none; background: none; border: none; padding: 8px;
@@ -471,9 +476,9 @@ button { font-family: inherit; cursor: pointer; }
 .icon-sm { width: 20px; height: 20px; }
 
 /* ---------- Responsive ---------- */
-/* Header nav needs ~1160px of room for all links + phone + CTA button,
-   so it switches to the hamburger menu well before the layout breakpoints. */
-@media (max-width: 1160px) {
+/* Header nav needs ~1360px of room for all links + New Site badge + phone +
+   CTA button, so it switches to the hamburger menu well before the layout breakpoints. */
+@media (max-width: 1360px) {
   .nav-links, .header-cta { display: none; }
   .nav-toggle { display: block; }
   .site-header.open .nav-links {

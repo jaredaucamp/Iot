@@ -457,6 +457,60 @@ button { font-family: inherit; cursor: pointer; background: none; border: none; 
 
 .problem-card svg { margin-bottom: 16px; transition: transform .35s var(--ease-out); }
 .problem-card:hover svg { transform: scale(1.12) translateY(-2px); }
+
+/* ---------- Blueprint illustration (Problem chapter) ---------- */
+.blueprint-wrap { margin-top: 64px; }
+.blueprint-caption { text-align: center; max-width: 620px; margin: 0 auto 32px; font-size: 15.5px; color: rgba(247,248,250,.62); }
+.blueprint { width: 100%; height: auto; display: block; }
+
+.bp-zone-before { fill: #ff5252; opacity: .04; }
+.bp-zone-after { fill: url(#blueprintAfterGrad); opacity: .09; }
+.bp-zone-label { font-family: var(--font-mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; fill: rgba(247,248,250,.4); }
+
+.bp-line { stroke: rgba(255,255,255,.22); stroke-width: 1.5; fill: none; }
+.bp-ground { stroke: rgba(255,255,255,.35); stroke-width: 2; }
+.bp-leader { stroke: rgba(255,255,255,.3); stroke-width: 1; stroke-dasharray: 3 3; }
+
+.bp-branch { stroke-width: 1.5; fill: none; }
+.bp-branch.dumb { stroke: #46536e; }
+.bp-branch.water { stroke: var(--water-500); }
+.bp-branch.power { stroke: var(--power-500); }
+
+.bp-riser { stroke-width: 3; fill: none; stroke-dasharray: 10 8; animation: bpFlow 1.8s linear infinite; }
+.bp-riser.water { stroke: var(--water-500); }
+.bp-riser.power { stroke: var(--power-500); }
+@keyframes bpFlow { to { stroke-dashoffset: -36; } }
+
+.bp-node-dumb { fill: #46536e; }
+.bp-node-smart.water { fill: var(--water-500); }
+.bp-node-smart.power { fill: var(--power-500); }
+
+.bp-pulse-ring { fill: none; stroke-width: 2; opacity: .7; animation: bpPulseRing 2.2s ease-out infinite; }
+.bp-pulse-ring.water { stroke: var(--water-500); }
+.bp-pulse-ring.power { stroke: var(--power-500); }
+@keyframes bpPulseRing { 0% { r: 10; opacity: .7; } 100% { r: 27; opacity: 0; } }
+
+.bp-leak-dot { fill: #ff5252; animation: bpLeakPulse 1.4s ease-in-out infinite; }
+@keyframes bpLeakPulse { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
+
+.bp-label { font-family: var(--font-mono); font-size: 15px; letter-spacing: .04em; font-weight: 700; text-transform: uppercase; }
+.bp-label.leak { fill: #ff8c8c; }
+.bp-label.water { fill: var(--water-500); }
+.bp-label.power { fill: var(--power-500); }
+.bp-label-sub { font-family: var(--font-body); font-size: 12.5px; fill: rgba(247,248,250,.48); }
+
+@media (max-width: 720px) {
+  /* The SVG's viewBox scales as a whole, so fixed-size embedded text
+     shrinks to unreadable pixel sizes on narrow screens (a 15px label
+     renders at ~4px on a 390px phone). Rather than guess at compensating
+     font sizes, drop the fine-print labels here — the HTML caption above
+     the diagram already carries the same story in normal, responsive text —
+     and keep only the diagram shapes, colors and animation, which stay
+     legible at any scale.
+  */
+  .blueprint-wrap { margin-top: 44px; }
+  .bp-label, .bp-label-sub, .bp-zone-label, .bp-leader { display: none; }
+}
 .shift-head { max-width: 620px; margin: 0 auto; text-align: center; }
 .shift-head h2 { color: var(--white); }
 .shift-head p.lead { color: rgba(247,248,250,.78); }

@@ -1,8 +1,8 @@
 # Extra Dimensions — Smart Utility Solutions Website
 
 A complete marketing website for **Extra Dimensions**, the marketing and
-installation partner of **Precision Meters** (smart water metering) and
-**PUCo** (smart electricity metering) in South Africa.
+installation partner of **Precision Meters** (smart water metering), also
+installing and supporting smart electricity metering, in South Africa.
 
 The site targets property owners and managers of **complexes, blocks of
 flats, estates and shopping centres**, and includes two lead-generation

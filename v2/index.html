@@ -76,6 +76,17 @@
           <span class="meter-status"><span class="dot"></span> Tracking</span>
         </div>
         <div class="meter-readout">
+          <div class="meter-wave" aria-hidden="true">
+            <svg viewBox="0 0 600 56" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+              <g class="wave-line wave-water">
+                <path d="M0 22 Q25 8 50 22 T100 22 T150 22 T200 22 T250 22 T300 22 T350 22 T400 22 T450 22 T500 22 T550 22 T600 22 T650 22 T700 22 T750 22 T800 22 T850 22 T900 22 T950 22 T1000 22 T1050 22 T1100 22 T1150 22 T1200 22"/>
+              </g>
+              <g class="wave-line wave-power">
+                <path d="M0 40 Q37.5 28 75 40 T150 40 T225 40 T300 40 T375 40 T450 40 T525 40 T600 40 T675 40 T750 40 T825 40 T900 40 T975 40 T1050 40 T1125 40 T1200 40"/>
+              </g>
+            </svg>
+            <span class="wave-tag">Live flow trace</span>
+          </div>
           <div class="row">
             <span class="row-label"><span class="swatch water"></span>Water lost on this page</span>
             <span class="meter-digits water"><span id="waterDigitsValue">0</span><span class="unit">L</span></span>
@@ -98,7 +109,7 @@
 
 <div class="chapter-dark chapter-flush">
   <div class="container">
-    <div class="stat-strip">
+    <div class="stat-strip reveal-stagger" data-reveal-stagger>
       <div class="stat"><div class="num">2</div><div class="lbl">Metering Partners</div></div>
       <div class="stat"><div class="num">5-Step</div><div class="lbl">Site-to-Signal Process</div></div>
       <div class="stat"><div class="num">24/7</div><div class="lbl">Remote Monitoring</div></div>
@@ -135,60 +146,70 @@
 
     <div class="blueprint-wrap reveal" data-reveal>
       <p class="blueprint-caption">Two floors below still run on old, dumb meters — one of them is leaking right now. The ground floor already has ours installed.</p>
-      <svg class="blueprint" viewBox="0 60 1200 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram of a building: upper floors show old meters with an undetected leak, the ground floor shows a smart water meter and smart electricity meter already installed and glowing.">
-        <defs>
-          <linearGradient id="blueprintAfterGrad" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stop-color="#22e5c8"/>
-            <stop offset="100%" stop-color="#ff8c42"/>
-          </linearGradient>
-        </defs>
+      <figure class="blueprint-sheet">
+        <figcaption class="sheet-head" aria-hidden="true">
+          <span>Extra Dimensions · Retrofit Plan</span>
+          <span>Sheet 01 — Typical shared building</span>
+        </figcaption>
+        <svg class="blueprint" viewBox="0 60 1200 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram of a building: upper floors show old meters with an undetected leak, the ground floor shows a smart water meter and smart electricity meter already installed and glowing.">
+          <defs>
+            <linearGradient id="blueprintAfterGrad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#22e5c8"/>
+              <stop offset="100%" stop-color="#ff8c42"/>
+            </linearGradient>
+          </defs>
 
-        <rect class="bp-zone-before" x="250" y="90" width="700" height="270"/>
-        <rect class="bp-zone-after" x="250" y="360" width="700" height="140"/>
-        <text class="bp-zone-label" x="965" y="105">Before</text>
-        <text class="bp-zone-label" x="965" y="378">After</text>
+          <rect class="bp-zone-before" x="250" y="90" width="700" height="270"/>
+          <rect class="bp-zone-after" x="250" y="360" width="700" height="140"/>
+          <text class="bp-zone-label" x="965" y="105">Before</text>
+          <text class="bp-zone-label" x="965" y="378">After</text>
 
-        <rect class="bp-line" x="250" y="90" width="700" height="410" rx="4"/>
-        <line class="bp-line" x1="250" y1="225" x2="950" y2="225"/>
-        <line class="bp-line" x1="250" y1="360" x2="950" y2="360"/>
-        <line class="bp-line" x1="565" y1="90" x2="565" y2="500"/>
-        <line class="bp-line" x1="635" y1="90" x2="635" y2="500"/>
+          <rect class="bp-line" pathLength="1" x="250" y="90" width="700" height="410" rx="4"/>
+          <line class="bp-line" pathLength="1" x1="250" y1="225" x2="950" y2="225"/>
+          <line class="bp-line" pathLength="1" x1="250" y1="360" x2="950" y2="360"/>
+          <line class="bp-line" pathLength="1" x1="565" y1="90" x2="565" y2="500"/>
+          <line class="bp-line" pathLength="1" x1="635" y1="90" x2="635" y2="500"/>
 
-        <line class="bp-ground" x1="210" y1="500" x2="990" y2="500"/>
-        <line class="bp-line" x1="250" y1="558" x2="950" y2="558"/>
+          <line class="bp-ground" pathLength="1" x1="210" y1="500" x2="990" y2="500"/>
+          <line class="bp-line" pathLength="1" x1="250" y1="558" x2="950" y2="558"/>
 
-        <line class="bp-riser water" x1="583" y1="558" x2="583" y2="90"/>
-        <line class="bp-riser power" x1="617" y1="558" x2="617" y2="90"/>
+          <line class="bp-riser water" x1="583" y1="558" x2="583" y2="90"/>
+          <line class="bp-riser power" x1="617" y1="558" x2="617" y2="90"/>
 
-        <line class="bp-branch dumb" x1="583" y1="157" x2="380" y2="157"/>
-        <circle class="bp-node-dumb" cx="380" cy="157" r="7"/>
-        <line class="bp-branch dumb" x1="617" y1="157" x2="820" y2="157"/>
-        <circle class="bp-node-dumb" cx="820" cy="157" r="7"/>
+          <line class="bp-branch dumb" pathLength="1" x1="583" y1="157" x2="380" y2="157"/>
+          <circle class="bp-node-dumb" cx="380" cy="157" r="7"/>
+          <line class="bp-branch dumb" pathLength="1" x1="617" y1="157" x2="820" y2="157"/>
+          <circle class="bp-node-dumb" cx="820" cy="157" r="7"/>
 
-        <line class="bp-branch dumb" x1="583" y1="292" x2="380" y2="292"/>
-        <circle class="bp-node-dumb" cx="380" cy="292" r="7"/>
-        <circle class="bp-leak-dot" cx="460" cy="292" r="5"/>
-        <line class="bp-branch dumb" x1="617" y1="292" x2="820" y2="292"/>
-        <circle class="bp-node-dumb" cx="820" cy="292" r="7"/>
+          <line class="bp-branch dumb" pathLength="1" x1="583" y1="292" x2="380" y2="292"/>
+          <circle class="bp-node-dumb" cx="380" cy="292" r="7"/>
+          <circle class="bp-leak-dot" cx="460" cy="292" r="5"/>
+          <circle class="bp-drip" cx="460" cy="299" r="2.6"/>
+          <circle class="bp-drip drip-2" cx="460" cy="299" r="2.6"/>
+          <line class="bp-branch dumb" pathLength="1" x1="617" y1="292" x2="820" y2="292"/>
+          <circle class="bp-node-dumb" cx="820" cy="292" r="7"/>
 
-        <line class="bp-branch water" x1="583" y1="430" x2="380" y2="430"/>
-        <circle class="bp-pulse-ring water" cx="380" cy="430" r="10"/>
-        <circle class="bp-node-smart water" cx="380" cy="430" r="7"/>
-        <line class="bp-branch power" x1="617" y1="430" x2="820" y2="430"/>
-        <circle class="bp-pulse-ring power" cx="820" cy="430" r="10"/>
-        <circle class="bp-node-smart power" cx="820" cy="430" r="7"/>
+          <line class="bp-branch water" pathLength="1" x1="583" y1="430" x2="380" y2="430"/>
+          <circle class="bp-pulse-ring water" cx="380" cy="430" r="10"/>
+          <circle class="bp-node-smart water" cx="380" cy="430" r="7"/>
+          <circle class="bp-packet water" cx="380" cy="430" r="3.4"/>
+          <line class="bp-branch power" pathLength="1" x1="617" y1="430" x2="820" y2="430"/>
+          <circle class="bp-pulse-ring power" cx="820" cy="430" r="10"/>
+          <circle class="bp-node-smart power" cx="820" cy="430" r="7"/>
+          <circle class="bp-packet power" cx="820" cy="430" r="3.4"/>
 
-        <line class="bp-leader" x1="460" y1="287" x2="460" y2="235"/>
-        <text class="bp-label leak" x="330" y="218">Undetected leak</text>
-        <text class="bp-label-sub" x="330" y="236">runs for months, nobody billed</text>
+          <line class="bp-leader" x1="460" y1="287" x2="460" y2="235"/>
+          <text class="bp-label leak" x="330" y="218">Undetected leak</text>
+          <text class="bp-label-sub" x="330" y="236">runs for months, nobody billed</text>
 
-        <line class="bp-leader" x1="380" y1="425" x2="380" y2="530"/>
-        <line class="bp-leader" x1="820" y1="425" x2="820" y2="530"/>
-        <text class="bp-label water" x="300" y="548">Smart water meter</text>
-        <text class="bp-label power" x="730" y="548">Smart power meter</text>
+          <line class="bp-leader" x1="380" y1="425" x2="380" y2="530"/>
+          <line class="bp-leader" x1="820" y1="425" x2="820" y2="530"/>
+          <text class="bp-label water" x="300" y="548">Smart water meter</text>
+          <text class="bp-label power" x="730" y="548">Smart power meter</text>
 
-        <text class="bp-label-sub" x="1000" y="497">Municipal supply</text>
-      </svg>
+          <text class="bp-label-sub" x="1000" y="497">Municipal supply</text>
+        </svg>
+      </figure>
     </div>
   </div>
 </section>

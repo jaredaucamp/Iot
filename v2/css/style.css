@@ -180,6 +180,11 @@ button { font-family: inherit; cursor: pointer; background: none; border: none; 
   position: absolute; top: -10%; left: -5%; right: -5%; bottom: -10%; opacity: .5; pointer-events: none;
   background-image: radial-gradient(circle at 82% 18%, rgba(34,229,200,.16), transparent 42%), radial-gradient(circle at 12% 82%, rgba(255,140,66,.14), transparent 45%);
   transform: translateY(calc(var(--px, 0) * -0.15px));
+  animation: noiseDrift 16s ease-in-out infinite alternate;
+}
+@keyframes noiseDrift {
+  from { background-position: 0px 0px, 0px 0px; }
+  to { background-position: 34px 22px, -28px -18px; }
 }
 .hero-inner { position: relative; z-index: 1; display: grid; grid-template-columns: 1.05fr .95fr; gap: 60px; align-items: center; }
 .hero-kicker { display: flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: 12.5px; letter-spacing: .12em; text-transform: uppercase; color: rgba(247,248,250,.55); margin-bottom: 26px; }
@@ -238,7 +243,33 @@ button { font-family: inherit; cursor: pointer; background: none; border: none; 
 .meter-brand-row .label { font-family: var(--font-mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: rgba(247,248,250,.6); }
 .meter-status { display: flex; align-items: center; gap: 7px; font-family: var(--font-mono); font-size: 11px; color: var(--water-500); }
 .meter-status .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--water-500); animation: pulse-dot 2.4s infinite; }
-.meter-readout { background: #060a14; border-radius: var(--radius-md); padding: 26px 22px; margin-bottom: 18px; border: 1px solid rgba(255,255,255,.05); }
+.meter-readout {
+  background: #060a14; border-radius: var(--radius-md); padding: 26px 22px; margin-bottom: 18px;
+  border: 1px solid rgba(255,255,255,.05); position: relative; overflow: hidden;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(255,255,255,.03) 0 1px, transparent 1px 18px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 1px, transparent 1px 18px);
+}
+.meter-readout::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(105deg, transparent 42%, rgba(34,229,200,.06) 50%, transparent 58%);
+  transform: translateX(-100%); animation: meterScan 5s ease-in-out infinite;
+}
+@keyframes meterScan { 0% { transform: translateX(-100%); } 60%, 100% { transform: translateX(100%); } }
+
+/* Live flow trace — dual scrolling waves, the "tracking" made visible */
+.meter-wave { position: relative; height: 56px; margin-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,.07); }
+.meter-wave svg { width: 100%; height: 100%; display: block; }
+.wave-line path { fill: none; stroke-width: 2; stroke-linecap: round; }
+.wave-water path { stroke: var(--water-500); filter: drop-shadow(0 0 5px rgba(34,229,200,.55)); }
+.wave-power path { stroke: var(--power-500); opacity: .85; filter: drop-shadow(0 0 5px rgba(255,140,66,.45)); }
+.wave-water { animation: waveSlide 7s linear infinite; }
+.wave-power { animation: waveSlide 11s linear infinite; }
+@keyframes waveSlide { to { transform: translateX(-600px); } }
+.wave-tag {
+  position: absolute; top: 4px; right: 0; font-family: var(--font-mono); font-size: 9.5px;
+  letter-spacing: .14em; text-transform: uppercase; color: rgba(247,248,250,.55);
+}
 .meter-readout .row { display: flex; align-items: baseline; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,.06); }
 .meter-readout .row:last-child { border-bottom: none; }
 .meter-readout .row-label { display: flex; align-items: center; gap: 10px; font-size: 13.5px; font-weight: 600; color: rgba(247,248,250,.6); }
@@ -281,6 +312,19 @@ button { font-family: inherit; cursor: pointer; background: none; border: none; 
 .shift-flow::before {
   content: ""; position: absolute; top: 34px; left: 8%; right: 8%; height: 2px;
   background: linear-gradient(90deg, var(--water-500), var(--power-500)); opacity: .35; z-index: 0;
+}
+/* A reading travelling meter → signal → cloud → you */
+.shift-flow::after {
+  content: ""; position: absolute; top: 29px; left: 8%; width: 12px; height: 12px; border-radius: 50%;
+  background: var(--white); z-index: 0; opacity: 0;
+  animation: signalTravel 4.5s ease-in-out infinite;
+}
+@keyframes signalTravel {
+  0% { left: 8%; opacity: 0; box-shadow: 0 0 14px 3px rgba(34,229,200,.85); }
+  10% { opacity: 1; }
+  50% { box-shadow: 0 0 14px 3px rgba(151,185,133,.7); }
+  90% { opacity: 1; }
+  100% { left: calc(92% - 12px); opacity: 0; box-shadow: 0 0 14px 3px rgba(255,140,66,.85); }
 }
 .shift-node { position: relative; z-index: 1; text-align: center; }
 .shift-node .node-icon {
@@ -382,8 +426,14 @@ button { font-family: inherit; cursor: pointer; background: none; border: none; 
 
 .lead-form {
   background: var(--white); border-radius: var(--radius-lg); padding: 40px; color: var(--graphite-900);
-  box-shadow: 0 30px 70px rgba(0,0,0,.35);
+  box-shadow: 0 30px 70px rgba(0,0,0,.35); position: relative; overflow: hidden;
 }
+.lead-form::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 5px;
+  background: linear-gradient(90deg, var(--water-500), var(--power-500), var(--water-500));
+  background-size: 200% 100%; animation: gradientSlide 6s linear infinite;
+}
+@keyframes gradientSlide { to { background-position: -200% 0; } }
 .lead-form h3 { font-size: 20px; margin-bottom: 6px; }
 .lead-form .sub { font-size: 14px; color: var(--graphite-500); margin-bottom: 26px; }
 .field-row { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 16px; }
@@ -458,13 +508,29 @@ button { font-family: inherit; cursor: pointer; background: none; border: none; 
 .problem-card svg { margin-bottom: 16px; transition: transform .35s var(--ease-out); }
 .problem-card:hover svg { transform: scale(1.12) translateY(-2px); }
 
-/* ---------- Blueprint illustration (Problem chapter) ---------- */
+/* ---------- Blueprint illustration (Problem chapter) ----------
+   Framed as the installer's own drawing: a plan sheet on blueprint grid
+   paper whose linework draws itself in as it scrolls into view. */
 .blueprint-wrap { margin-top: 64px; }
 .blueprint-caption { text-align: center; max-width: 620px; margin: 0 auto 32px; font-size: 15.5px; color: rgba(247,248,250,.62); }
+.blueprint-sheet {
+  margin: 0; padding: 18px 24px 10px; border: 1px solid rgba(255,255,255,.13); border-radius: var(--radius-md);
+  background-color: rgba(6,10,20,.45);
+  background-image:
+    repeating-linear-gradient(0deg, rgba(34,229,200,.045) 0 1px, transparent 1px 26px),
+    repeating-linear-gradient(90deg, rgba(34,229,200,.045) 0 1px, transparent 1px 26px);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.04), 0 20px 50px rgba(0,0,0,.3);
+}
+.sheet-head {
+  display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap;
+  padding-bottom: 14px; margin-bottom: 4px; border-bottom: 1px solid rgba(255,255,255,.1);
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: .13em; text-transform: uppercase;
+  color: rgba(247,248,250,.45);
+}
 .blueprint { width: 100%; height: auto; display: block; }
 
-.bp-zone-before { fill: #ff5252; opacity: .04; }
-.bp-zone-after { fill: url(#blueprintAfterGrad); opacity: .09; }
+.bp-zone-before { fill: #ff5252; opacity: .04; transition: opacity 1s ease .9s; }
+.bp-zone-after { fill: url(#blueprintAfterGrad); opacity: .09; transition: opacity 1s ease .9s; }
 .bp-zone-label { font-family: var(--font-mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; fill: rgba(247,248,250,.4); }
 
 .bp-line { stroke: rgba(255,255,255,.22); stroke-width: 1.5; fill: none; }
@@ -476,22 +542,68 @@ button { font-family: inherit; cursor: pointer; background: none; border: none; 
 .bp-branch.water { stroke: var(--water-500); }
 .bp-branch.power { stroke: var(--power-500); }
 
+/* Draw-in choreography: structure first, then branches, then life.
+   Fully drawn by default so a JS failure never hides the diagram —
+   the .pre state (added only pre-reveal) rewinds it. */
+.bp-line, .bp-ground { stroke-dasharray: 1; stroke-dashoffset: 0; transition: stroke-dashoffset 1.4s var(--ease-out); }
+.bp-branch { stroke-dasharray: 1; stroke-dashoffset: 0; transition: stroke-dashoffset .9s var(--ease-out) .6s; }
+/* .pre rewinds instantly (transition: none) so only the reveal animates */
+.blueprint-wrap.pre .bp-line, .blueprint-wrap.pre .bp-ground, .blueprint-wrap.pre .bp-branch { stroke-dashoffset: 1; transition: none; }
+
+.bp-node-dumb, .bp-node-smart, .bp-riser,
+.bp-label, .bp-label-sub, .bp-zone-label, .bp-leader { transition: opacity .7s ease 1s; }
+.blueprint-wrap.pre .bp-node-dumb, .blueprint-wrap.pre .bp-node-smart, .blueprint-wrap.pre .bp-riser,
+.blueprint-wrap.pre .bp-label, .blueprint-wrap.pre .bp-label-sub, .blueprint-wrap.pre .bp-zone-label,
+.blueprint-wrap.pre .bp-leader, .blueprint-wrap.pre .bp-zone-before, .blueprint-wrap.pre .bp-zone-after { opacity: 0; transition: none; }
+
+/* These animate their own opacity, so gate them with visibility instead */
+.bp-pulse-ring, .bp-leak-dot, .bp-drip, .bp-packet { visibility: visible; transition: visibility 0s linear 1.1s; }
+.blueprint-wrap.pre .bp-pulse-ring, .blueprint-wrap.pre .bp-leak-dot,
+.blueprint-wrap.pre .bp-drip, .blueprint-wrap.pre .bp-packet { visibility: hidden; transition-delay: 0s; }
+
 .bp-riser { stroke-width: 3; fill: none; stroke-dasharray: 10 8; animation: bpFlow 1.8s linear infinite; }
 .bp-riser.water { stroke: var(--water-500); }
 .bp-riser.power { stroke: var(--power-500); }
 @keyframes bpFlow { to { stroke-dashoffset: -36; } }
 
 .bp-node-dumb { fill: #46536e; }
-.bp-node-smart.water { fill: var(--water-500); }
-.bp-node-smart.power { fill: var(--power-500); }
+.bp-node-smart.water { fill: var(--water-500); filter: drop-shadow(0 0 7px rgba(34,229,200,.9)); }
+.bp-node-smart.power { fill: var(--power-500); filter: drop-shadow(0 0 7px rgba(255,140,66,.85)); }
 
 .bp-pulse-ring { fill: none; stroke-width: 2; opacity: .7; animation: bpPulseRing 2.2s ease-out infinite; }
 .bp-pulse-ring.water { stroke: var(--water-500); }
 .bp-pulse-ring.power { stroke: var(--power-500); }
 @keyframes bpPulseRing { 0% { r: 10; opacity: .7; } 100% { r: 27; opacity: 0; } }
 
-.bp-leak-dot { fill: #ff5252; animation: bpLeakPulse 1.4s ease-in-out infinite; }
+.bp-leak-dot { fill: #ff5252; filter: drop-shadow(0 0 6px rgba(255,82,82,.8)); animation: bpLeakPulse 1.4s ease-in-out infinite; }
 @keyframes bpLeakPulse { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
+
+/* Water actually dripping from the leak */
+.bp-drip { fill: #ff7b7b; animation: bpDrip 1.6s ease-in infinite; }
+.bp-drip.drip-2 { animation-delay: .8s; }
+@keyframes bpDrip {
+  0% { transform: translateY(0); opacity: 0; }
+  12% { opacity: .95; }
+  78% { opacity: .8; }
+  100% { transform: translateY(46px); opacity: 0; }
+}
+
+/* Data packets: the smart meters reporting back into the risers */
+.bp-packet { fill: #fff; }
+.bp-packet.water { filter: drop-shadow(0 0 5px rgba(34,229,200,.9)); animation: bpPacketRight 2.8s ease-in-out infinite .6s; }
+.bp-packet.power { filter: drop-shadow(0 0 5px rgba(255,140,66,.9)); animation: bpPacketLeft 3.4s ease-in-out infinite 1.2s; }
+@keyframes bpPacketRight {
+  0% { transform: translateX(0); opacity: 0; }
+  12% { opacity: 1; }
+  86% { opacity: 1; }
+  100% { transform: translateX(203px); opacity: 0; }
+}
+@keyframes bpPacketLeft {
+  0% { transform: translateX(0); opacity: 0; }
+  12% { opacity: 1; }
+  86% { opacity: 1; }
+  100% { transform: translateX(-203px); opacity: 0; }
+}
 
 .bp-label { font-family: var(--font-mono); font-size: 15px; letter-spacing: .04em; font-weight: 700; text-transform: uppercase; }
 .bp-label.leak { fill: #ff8c8c; }
@@ -509,6 +621,8 @@ button { font-family: inherit; cursor: pointer; background: none; border: none; 
      legible at any scale.
   */
   .blueprint-wrap { margin-top: 44px; }
+  .blueprint-sheet { padding: 12px 12px 6px; }
+  .sheet-head { font-size: 9px; letter-spacing: .09em; }
   .bp-label, .bp-label-sub, .bp-zone-label, .bp-leader { display: none; }
 }
 .shift-head { max-width: 620px; margin: 0 auto; text-align: center; }
@@ -549,7 +663,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   .stat-strip { grid-template-columns: repeat(2, minmax(0,1fr)); }
   .stat-strip .stat:nth-child(2) { border-right: none; }
   .shift-flow { grid-template-columns: repeat(2, minmax(0,1fr)); row-gap: 32px; }
-  .shift-flow::before { display: none; }
+  .shift-flow::before, .shift-flow::after { display: none; }
   .process-rail { grid-template-columns: repeat(3, minmax(0,1fr)); row-gap: 30px; }
   .process-rail::before { display: none; }
   .two-col { grid-template-columns: minmax(0,1fr); gap: 34px; }

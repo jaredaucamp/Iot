@@ -263,6 +263,22 @@ button { font-family: inherit; cursor: pointer; }
 .card-icon.blue { background: var(--blue-water-light); color: var(--blue-water); }
 .card-icon.navy { background: #e9edf5; color: var(--navy-800); }
 .card h3 { font-size: 19px; margin-bottom: 8px; }
+
+/* ---------- Testimonials ---------- */
+.testimonial-card {
+  background: var(--white); border: 1px solid var(--gray-100); border-radius: var(--radius-md);
+  padding: 28px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column;
+}
+.testimonial-card .quote { font-size: 15px; color: var(--gray-700); margin-bottom: 22px; flex-grow: 1; }
+.testimonial-author { display: flex; align-items: center; gap: 12px; }
+.testimonial-author .avatar {
+  width: 42px; height: 42px; border-radius: 50%; flex-shrink: 0;
+  background: var(--blue-water-light); color: var(--blue-water);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-head); font-weight: 700; font-size: 14px;
+}
+.testimonial-author .t-name { font-weight: 700; font-size: 14.5px; color: var(--navy-800); }
+.testimonial-author .t-role { font-size: 12.5px; color: var(--gray-500); margin-top: 1px; }
 .card p { font-size: 15px; margin-bottom: 0; }
 
 .check-list li {
@@ -438,6 +454,29 @@ button { font-family: inherit; cursor: pointer; }
   position: fixed; bottom: 0; left: 0; right: 0; z-index: 90;
   background: var(--white); border-top: 1px solid var(--gray-300); box-shadow: 0 -6px 20px rgba(0,0,0,.08);
   padding: 12px 16px; display: none; gap: 10px;
+}
+
+/* ---------- WhatsApp floating button ---------- */
+.whatsapp-fab {
+  position: fixed; right: 22px; bottom: 24px; z-index: 95;
+  width: 58px; height: 58px; border-radius: 50%; background: #25d366;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 10px 26px rgba(37,211,102,.4);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.whatsapp-fab:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 14px 32px rgba(37,211,102,.5); }
+.whatsapp-fab svg { width: 30px; height: 30px; }
+.whatsapp-fab .wa-tip {
+  position: absolute; right: 68px; top: 50%; transform: translateY(-50%);
+  background: var(--navy-900); color: var(--white); font-size: 13px; font-weight: 600;
+  padding: 8px 13px; border-radius: 8px; white-space: nowrap; opacity: 0; pointer-events: none;
+  transition: opacity .2s ease;
+}
+.whatsapp-fab:hover .wa-tip, .whatsapp-fab:focus-visible .wa-tip { opacity: 1; }
+@media (max-width: 720px) {
+  .whatsapp-fab { bottom: 88px; width: 52px; height: 52px; right: 16px; }
+  .whatsapp-fab svg { width: 27px; height: 27px; }
+  .whatsapp-fab .wa-tip { display: none; }
 }
 
 /* ---------- Reveal animation ----------

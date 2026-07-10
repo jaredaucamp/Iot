@@ -151,6 +151,29 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Savings calculator — illustrative estimate of unmetered losses,
+  // scaled off the building's own monthly municipal bill.
+  const calcUnits = document.getElementById('calcUnits');
+  const calcBill = document.getElementById('calcBill');
+  const calcMonthly = document.getElementById('calcMonthly');
+  const calcAnnual = document.getElementById('calcAnnual');
+  const calcPerUnit = document.getElementById('calcPerUnit');
+  if (calcBill && calcMonthly && calcAnnual && calcPerUnit) {
+    const LOSS_RATE = 0.15;
+    const rand = new Intl.NumberFormat('en-ZA', { maximumFractionDigits: 0 });
+    function updateCalc() {
+      const bill = Math.max(0, Number(calcBill.value) || 0);
+      const units = Math.max(1, Number(calcUnits && calcUnits.value) || 1);
+      const monthlyLoss = bill * LOSS_RATE;
+      calcMonthly.textContent = 'R' + rand.format(monthlyLoss);
+      calcAnnual.textContent = 'R' + rand.format(monthlyLoss * 12);
+      calcPerUnit.textContent = 'R' + rand.format(monthlyLoss / units);
+    }
+    calcBill.addEventListener('input', updateCalc);
+    if (calcUnits) calcUnits.addEventListener('input', updateCalc);
+    updateCalc();
+  }
+
   // FAQ accordion — keyboard accessible, tracks the open item directly
   let openFaqItem = document.querySelector('.faq-item.open');
   document.querySelectorAll('.faq-item').forEach(item => {

@@ -474,9 +474,11 @@ button { font-family: inherit; cursor: pointer; }
 }
 .whatsapp-fab:hover .wa-tip, .whatsapp-fab:focus-visible .wa-tip { opacity: 1; }
 @media (max-width: 720px) {
-  .whatsapp-fab { bottom: 88px; width: 52px; height: 52px; right: 16px; }
+  .whatsapp-fab { bottom: 18px; width: 52px; height: 52px; right: 16px; }
   .whatsapp-fab svg { width: 27px; height: 27px; }
   .whatsapp-fab .wa-tip { display: none; }
+  /* Pages with the sticky mobile CTA bar need the fab bumped up to clear it */
+  body.has-mobile-cta .whatsapp-fab { bottom: 88px; }
 }
 
 /* ---------- Reveal animation ----------

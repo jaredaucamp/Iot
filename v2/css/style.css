@@ -525,9 +525,11 @@ button { font-family: inherit; cursor: pointer; background: none; border: none; 
 }
 .whatsapp-fab:hover .wa-tip, .whatsapp-fab:focus-visible .wa-tip { opacity: 1; }
 @media (max-width: 640px) {
-  .whatsapp-fab { bottom: 90px; width: 52px; height: 52px; right: 18px; }
+  .whatsapp-fab { bottom: 18px; width: 52px; height: 52px; right: 18px; }
   .whatsapp-fab svg { width: 27px; height: 27px; }
   .whatsapp-fab .wa-tip { display: none; }
+  /* v2's page has the sticky mobile CTA bar, so bump the fab up to clear it */
+  body.has-mobile-cta .whatsapp-fab { bottom: 90px; }
 }
 
 /* ---------- Utility ---------- */
@@ -539,7 +541,6 @@ button { font-family: inherit; cursor: pointer; background: none; border: none; 
 .lead-muted { color: var(--graphite-500); }
 .text-muted-lg { color: var(--graphite-500); font-size: 17px; }
 .dot-water { background: var(--water-500); }
-.dot-power { background: var(--power-500); }
 .visually-hidden {
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
   overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;

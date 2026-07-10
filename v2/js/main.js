@@ -158,19 +158,19 @@ document.addEventListener('DOMContentLoaded', () => {
   const calcMonthly = document.getElementById('calcMonthly');
   const calcAnnual = document.getElementById('calcAnnual');
   const calcPerUnit = document.getElementById('calcPerUnit');
-  if (calcBill && calcMonthly && calcAnnual && calcPerUnit) {
-    const LOSS_RATE = 0.15;
+  if (calcUnits && calcBill && calcMonthly && calcAnnual && calcPerUnit) {
+    const LOSS_RATE = 0.15; // illustrative unmetered-loss rate for shared SA properties
     const rand = new Intl.NumberFormat('en-ZA', { maximumFractionDigits: 0 });
     function updateCalc() {
       const bill = Math.max(0, Number(calcBill.value) || 0);
-      const units = Math.max(1, Number(calcUnits && calcUnits.value) || 1);
+      const units = Math.min(2000, Math.max(1, Number(calcUnits.value) || 1));
       const monthlyLoss = bill * LOSS_RATE;
       calcMonthly.textContent = 'R' + rand.format(monthlyLoss);
       calcAnnual.textContent = 'R' + rand.format(monthlyLoss * 12);
       calcPerUnit.textContent = 'R' + rand.format(monthlyLoss / units);
     }
     calcBill.addEventListener('input', updateCalc);
-    if (calcUnits) calcUnits.addEventListener('input', updateCalc);
+    calcUnits.addEventListener('input', updateCalc);
     updateCalc();
   }
 
